@@ -31,7 +31,6 @@ describe Vkcom::Site do
     it { should be_an_instance_of(XML::Document) }
 
     it 'should have items' do
-      puts subject.to_s
       items = subject.find('//item')
       items.should have(22).items
     end
