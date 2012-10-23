@@ -19,6 +19,7 @@ module Vkcom
         xml.channel do
           xml.title       "vk.com podcast for %s" % @url
           xml.description "vk.com podcast for %s" % @url
+          xml.link        @url
 
           tracks.each do |track|
             xml.item do
