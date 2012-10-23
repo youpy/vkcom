@@ -25,8 +25,8 @@ module Vkcom
             xml.item do
               xml.title track.title
               xml.description track.title
-              xml.link @url + '#' + track.media_url
-              xml.guid @url + '#' + track.media_url
+              xml.link track.media_url
+              xml.guid track.media_url
               xml.enclosure :url => track.media_url
               xml.author track.artist
               xml.itunes :author, track.artist
