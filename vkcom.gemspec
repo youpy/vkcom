@@ -23,4 +23,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('nokogiri')
   gem.add_dependency('builder')
+  gem.add_dependency('virtus')
 end

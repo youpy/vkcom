@@ -21,8 +21,9 @@ describe Vkcom::Site do
   describe '#tracks[0]' do
     subject { site.tracks[0] }
 
-    its(:title)  { should eql('░▒▓TANLINES: melted Cd-R ~ a mix for マインドCTRL ') }
-    its(:artist) { should eql('BOY MTN')}
+    its(:title)    { should eql('░▒▓TANLINES: melted Cd-R ~ a mix for マインドCTRL ') }
+    its(:artist)   { should eql('BOY MTN')}
+    its(:duration) { should eql(2302)}
   end
 
   describe '#to_xml' do
