@@ -15,7 +15,7 @@ describe Vkcom::Site do
   describe '#tracks' do
     subject { site.tracks }
 
-    it { should have(22).items }
+    it { should have(19).items }
   end
 
   describe '#tracks[0]' do
@@ -33,7 +33,7 @@ describe Vkcom::Site do
 
     it 'should have items' do
       items = subject.find('//item')
-      items.should have(22).items
+      items.should have(19).items
     end
   end
 end

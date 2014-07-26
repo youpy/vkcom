@@ -30,6 +30,8 @@ module Vkcom
               xml.enclosure :url => track.media_url
               xml.author track.artist
               xml.itunes :author, track.artist
+              xml.itunes :summary, track.title
+              xml.pubDate track.pub_date.utc.rfc822
             end
           end
         end
@@ -39,19 +41,27 @@ module Vkcom
     private
 
     def find_tracks
-      doc.xpath('//input[@type="hidden" and contains(@value, "mp3")]').map do |el|
-        id                  = el['id'].sub(/audio_info\-?/, '')
-        media_url, duration = el['value'].split(',')
-        title_elem          = doc.xpath('//span[contains(@id, "%s")]' % id)[0]
-        title               = title_elem.text
-        artist              = title_elem.previous.previous.text
+      doc.xpath('//div[@class="post_table"]').inject([]) do |tracks, post_table|
+        timestamp = post_table.xpath('//span[@class="rel_date" or @class="rel_date rel_date_needs_update"]')[0]['time'].to_i
+        time = Time.at(timestamp)
 
-        Track.new(
-          :media_url => media_url,
-          :duration  => duration,
-          :title     => title,
-          :artist    => artist
+        post_table.xpath('.//input[@type="hidden" and contains(@value, "mp3")]').each do |el|
+          id                  = el['id'].sub(/audio_info\-?/, '')
+          media_url, duration = el['value'].split(',')
+          title_elem          = doc.xpath('//span[contains(@id, "%s")]' % id)[0]
+          title               = title_elem.text
+          artist              = title_elem.previous.previous.text
+
+          tracks << Track.new(
+            :media_url => media_url,
+            :duration  => duration,
+            :title     => title,
+            :artist    => artist,
+            :pub_date  => time.utc.rfc822
           )
+        end
+
+        tracks
       end
     end
 

@@ -9,6 +9,7 @@ module Vkcom
     attribute :artist,    String
     attribute :media_url, String
     attribute :duration,  Integer
+    attribute :pub_date,  Time
 
     def guid
       Digest::MD5.hexdigest([title, artist, duration].join('_'))
