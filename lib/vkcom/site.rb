@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
+require 'chronic'
 require 'builder/xmlmarkup'
 
 module Vkcom
@@ -42,8 +43,8 @@ module Vkcom
 
     def find_tracks
       doc.xpath('//div[@class="post_table"]').inject([]) do |tracks, post_table|
-        timestamp = post_table.xpath('//span[@class="rel_date" or @class="rel_date rel_date_needs_update"]')[0]['time'].to_i
-        time = Time.at(timestamp)
+        time_text = post_table.xpath('.//span[@class="rel_date" or @class="rel_date rel_date_needs_update"]')[0].text
+        time = Chronic.parse(time_text, :now => Time.now.utc)
 
         post_table.xpath('.//input[@type="hidden" and contains(@value, "mp3")]').each do |el|
           id                  = el['id'].sub(/audio_info\-?/, '')
@@ -57,7 +58,7 @@ module Vkcom
             :duration  => duration,
             :title     => title,
             :artist    => artist,
-            :pub_date  => time.utc.rfc822
+            :pub_date  => time
           )
         end
 

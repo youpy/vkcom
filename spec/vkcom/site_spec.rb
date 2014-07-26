@@ -24,6 +24,7 @@ describe Vkcom::Site do
     its(:title)    { should eql('░▒▓TANLINES: melted Cd-R ~ a mix for マインドCTRL ') }
     its(:artist)   { should eql('BOY MTN')}
     its(:duration) { should eql(2302)}
+    its(:pub_date) { should be_an_instance_of(Time) }
   end
 
   describe '#to_xml' do
