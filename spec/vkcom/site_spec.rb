@@ -35,6 +35,7 @@ describe Vkcom::Site do
     it 'should have items' do
       items = subject.find('//item')
       items.should have(19).items
+      items[0].find('.//itunes:duration')[0].to_s.should eql('<itunes:duration>00:38:22</itunes:duration>')
     end
   end
 end

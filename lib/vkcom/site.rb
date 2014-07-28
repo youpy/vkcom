@@ -32,6 +32,7 @@ module Vkcom
               xml.author track.artist
               xml.itunes :author, track.artist
               xml.itunes :summary, track.title
+              xml.itunes :duration, duration_to_str(track.duration)
               xml.pubDate track.pub_date.utc.rfc822
             end
           end
@@ -40,6 +41,18 @@ module Vkcom
     end
 
     private
+
+    def duration_to_str(duration)
+      digits = []
+
+      [60, 60, 24].inject(duration) do |dur, n|
+        digit = (dur % n).to_s
+        digits << (digit.size < 2 ? '0' + digit : digit)
+        dur / n
+      end
+
+      digits.reverse.join(':')
+    end
 
     def find_tracks
       doc.xpath('//div[@class="post_table"]').inject([]) do |tracks, post_table|
