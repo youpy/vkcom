@@ -43,15 +43,11 @@ module Vkcom
     private
 
     def duration_to_str(duration)
-      digits = []
-
-      [60, 60, 24].inject(duration) do |dur, n|
+      [60, 60, 24].inject([duration, []]) do |(dur, digits), n|
         digit = (dur % n).to_s
         digits << (digit.size < 2 ? '0' + digit : digit)
-        dur / n
-      end
-
-      digits.reverse.join(':')
+        [dur / n, digits]
+      end[1].reverse.join(':')
     end
 
     def find_tracks
