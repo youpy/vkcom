@@ -3,7 +3,7 @@ require 'digest/md5'
 
 module Vkcom
   class Track
-    include Virtus
+    include Virtus.model
 
     attribute :title,     String
     attribute :artist,    String

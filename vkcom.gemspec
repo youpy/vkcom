@@ -23,6 +23,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('nokogiri')
   gem.add_dependency('builder')
-  gem.add_dependency('virtus')
+  gem.add_dependency('virtus', '~> 1.0.0')
   gem.add_dependency('chronic')
 end
