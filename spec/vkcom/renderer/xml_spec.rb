@@ -16,6 +16,12 @@ describe Vkcom::Renderer::XML do
         to_return(:body => open(File.expand_path(File.dirname(__FILE__) + '/../../content.html')).read)
     end
 
+    it 'should have a title' do
+      items = rendered.find('//channel/title/text()')
+      items.should have(1).item
+      items[0].to_s.should eql('vk.com podcast for http://vk.com/webwave')
+    end
+
     it 'should have items' do
       items = rendered.find('//item')
       items.should have(19).items

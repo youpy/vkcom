@@ -8,13 +8,14 @@ module Vkcom
       end
 
       def render
+        url = @site.url
         xml = Builder::XmlMarkup.new
         xml.instruct! :xml, :version => '1.0'
         xml.rss :version => "2.0", 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd' do
           xml.channel do
-            xml.title       "vk.com podcast for %s" % @url
-            xml.description "vk.com podcast for %s" % @url
-            xml.link        @url
+            xml.title       "vk.com podcast for %s" % url
+            xml.description "vk.com podcast for %s" % url
+            xml.link        url
 
             @site.tracks.each do |track|
               xml.item do
